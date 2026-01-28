@@ -24,6 +24,18 @@ SELECT COUNT(DISTINCT order_id) AS unique_customer_orders
 FROM customer_orders;
 ```
 
+**Question 3:** How many successful orders were delivered by each runner?
+
+---
+## SQL Code
+
+```sql
+SELECT runner_id, COUNT(pickup_time) as successful_orders FROM runner_orders WHERE 
+pickup_time IS NOT NULL AND cancellation IS null 
+GROUP BY runner_id
+
+```
+
 
 **Question 4:** How many of each type of pizza was delivered?
 
