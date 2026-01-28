@@ -1,1 +1,1 @@
-# SQL-Challenge-Case-Study-2-Pizza-Runner
+# SQL Case Study 2: Pizza Runner
