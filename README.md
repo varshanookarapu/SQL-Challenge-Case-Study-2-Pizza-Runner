@@ -95,18 +95,13 @@ ORDER BY customer_id;
 ## SQL Code
 
 ```sql
-WITH customer_orders_pizza_names AS (
-    SELECT order_id,
-           customer_id,
-           co.pizza_id,
-           exclusions,
-           extras,
-           order_time,
-           pizza_name
-    FROM customer_orders co
-    LEFT JOIN pizza_names pn ON co.pizza_id = pn.pizza_id
+WITH customer_orders_runner_orders AS 
+(
+SELECT co.order_id,customer_id,pizza_id,exclusions,extras,order_time,runner_id,pickup_time,distance,duration,cancellation FROM customer_orders co LEFT JOIN runner_orders ro ON
+co.order_id = ro.order_id 
+ORDER BY co.order_id
 )
-SELECT COUNT(order_id) AS pizzas_delivered_with_exclusions_and_extras
-FROM customer_orders_pizza_names
-WHERE exclusions IS NOT NULL AND extras IS NOT NULL;
+
+SELECT COUNT(order_id) as  pizzas_delivered_with_exclusions_and_extras
+FROM  customer_orders_runner_orders WHERE exclusions IS NOT NULL AND extras IS NOT NULL AND pickup_time IS NOT NULL
 ```
