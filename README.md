@@ -1,5 +1,50 @@
 # SQL Case Study 2: Pizza Runner
 
+## Data Cleaning Customer Orders Table 
+
+```sql
+
+--Cleaning Customer Orders Table Exclustions and Extras Columns - updating blank vlaues to nulls
+-- Checking for null string value, blank values and actual null and replacing them all with nulls
+
+UPDATE customer_orders
+SET exclusions = null
+WHERE exclusions IS null OR TRIM(exclusions) = '' OR exclusions = 'null';
+   
+
+UPDATE customer_orders
+SET extras = null
+WHERe extras IS NULL  OR TRIM(extras)='' OR extras  = 'null';
+
+-- Checking Duplicates 
+SELECT order_id,customer_id,pizza_id,exclusions,extras,order_time, COUNT(*)
+FROM customer_orders
+GROUP BY order_id,customer_id,order_time,pizza_id,exclusions,extras
+HAVING COUNT(*) > 1;
+
+
+--Deleting the duplicate records
+--ctid → a unique physical identifier for each row  in PostgresSQL
+
+DELETE FROM customer_orders 
+WHERE ctid NOT IN ( SELECT MIN(ctid) FROM customer_orders GROUP BY order_id,customer_id,order_time,pizza_id,exclusions,extras ) ;
+            
+-- Final cleaned customer_orders Table
+SELECT * FROM customer_orders ORDER BY order_id;
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 ## A. Pizza Metrics
 
 **Question 1:** How many pizzas were ordered?
