@@ -11,9 +11,6 @@
 ```sql
 SELECT COUNT(order_id) AS pizzas_ordered
 FROM customer_orders;
-
-SELECT COUNT(DISTINCT order_id) AS unique_customer_orders
-FROM customer_orders;
 ```
 
 
