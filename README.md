@@ -34,15 +34,60 @@ SELECT * FROM customer_orders ORDER BY order_id;
 
 ```
 
+---
+
+## Data Cleaning Runner Orders Table
+
+```sql
+--cancellation column
+
+UPDATE runner_orders 
+SET cancellation = null 
+WHERe cancellation = 'null' OR  TRIM(cancellation) = '' OR 
+cancellation = 'NaN' ;
+
+--pickup_time
+UPDATE runner_orders 
+SET pickup_time = null 
+WHERe pickup_time = 'null' OR  TRIM(pickup_time) = '' OR 
+pickup_time = 'NaN' ;
+
+--distance
+UPDATE runner_orders 
+SET distance = null 
+WHERe distance = 'null' OR  TRIM(distance) = '' OR 
+distance = 'NaN' ;
+--duration 
+UPDATE runner_orders 
+SET duration = null 
+WHERe duration = 'null' OR  TRIM(duration) = '' OR 
+duration = 'NaN' ;
+
+-- removing km and mins from distance and duration columns
+
+UPDATE runner_orders
+SET distance = REGEXP_REPLACE( distance, '[^0-9.]', '', 'g' ) ;
 
 
+UPDATE runner_orders
+SET duration = REGEXP_REPLACE (duration , '[^0-9.]','','g');
 
 
+-- Changing the data types of pickup_time, distance and duration columns
+
+ALTER TABLE runner_orders
+ALTER COLUMN distance TYPE decimal USING distance :: decimal; 
+
+ALTER TABLE runner_orders
+ALTER duration TYPE integer USING duration ::integer;
+
+ALTER TABLE runner_orders
+ALTER pickup_time TYPE timestamp USING  pickup_time :: timestamp; 
 
 
+SELECT * FROM runner_orders ORDER BY order_id
 
-
-
+```
 
 
 ## A. Pizza Metrics
