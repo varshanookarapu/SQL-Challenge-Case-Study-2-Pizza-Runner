@@ -195,3 +195,18 @@ ORDER BY co.order_id
 SELECT COUNT(order_id) as  pizzas_delivered_with_exclusions_and_extras
 FROM  customer_orders_runner_orders WHERE exclusions IS NOT NULL AND extras IS NOT NULL AND pickup_time IS NOT NULL
 ```
+**Question 10**: What was the volume of orders for each day of the week?  - could be ambiguous but we need to count all the orders based on the day of the week ( like all orders on monday irrespective of order_date ) 
+
+---
+
+## SQL Code
+
+```sql
+
+--TO_CHAR() is a conversion/formatting function that converts a date, timestamp, or number into a string
+
+SELECT  TO_CHAR(order_time ,'Day' )   as day_of_week, COUNT( order_id) as volume_of_orders FROM customer_orders 
+GROUP BY  TO_CHAR (order_time , 'Day')
+ORDER BY TO_CHAR (order_time , 'Day') DESC
+```
+
