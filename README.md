@@ -195,6 +195,8 @@ ORDER BY co.order_id
 SELECT COUNT(order_id) as  pizzas_delivered_with_exclusions_and_extras
 FROM  customer_orders_runner_orders WHERE exclusions IS NOT NULL AND extras IS NOT NULL AND pickup_time IS NOT NULL
 ```
+
+
 **Question 10**: What was the volume of orders for each day of the week?  - could be ambiguous but we need to count all the orders based on the day of the week ( like all orders on monday irrespective of order_date ) 
 
 ---
