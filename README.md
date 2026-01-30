@@ -149,21 +149,20 @@ GROUP BY runner_id
 ## SQL Code
 
 ```sql
-WITH customer_orders_pizza_names AS (
-    SELECT order_id,
-           customer_id,
-           co.pizza_id,
-           exclusions,
-           extras,
-           order_time,
-           pizza_name
-    FROM customer_orders co
-    LEFT JOIN pizza_names pn ON co.pizza_id = pn.pizza_id
+WITH customer_orders_runner_orders AS 
+(
+SELECT co.order_id,customer_id,pn.pizza_id,pizza_name, exclusions,extras,order_time,runner_id,pickup_time,distance,duration,cancellation FROM customer_orders co LEFT JOIN runner_orders ro ON
+co.order_id = ro.order_id 
+LEFT JOIN pizza_names pn ON
+co.pizza_id = pn.pizza_id
+ORDER BY co.order_id
 )
-SELECT pizza_name, COUNT(pizza_id) AS total_pizzas_delivered
-FROM customer_orders_pizza_names
-GROUP BY pizza_name;
+SELECT pizza_id, pizza_name, COUNT(pizza_id) AS total_pizzas_delivered
+FROM customer_orders_runner_orders
+WHERE cancellation IS NULL
+GROUP BY pizza_id,pizza_name;
 ```
+<img width="1671" height="201" alt="image" src="https://github.com/user-attachments/assets/5f5230ef-ae46-42cd-9f21-a37e401a82f9" />
 
 
 **Question 5**: How many Vegetarian and Meatlovers were ordered by each customer? - Join customer_orders and pizza_names tables
