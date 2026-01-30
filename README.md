@@ -120,6 +120,14 @@ SELECT COUNT(DISTINCT order_id) AS unique_customer_orders
 FROM customer_orders;
 ```
 
+| unique_customer_orders |
+| ---------------------- |
+| 10                     |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/7VcQKQwsS3CTkGRFG7vu98/65)
+
 **Question 3:** How many successful orders were delivered by each runner?
 
 ---
