@@ -139,6 +139,7 @@ pickup_time IS NOT NULL AND cancellation IS null
 GROUP BY runner_id
 
 ```
+<img width="1681" height="222" alt="image" src="https://github.com/user-attachments/assets/65359b21-dd15-4c6c-a085-3b60b35bfac6" />
 
 
 **Question 4:** How many of each type of pizza was delivered?
