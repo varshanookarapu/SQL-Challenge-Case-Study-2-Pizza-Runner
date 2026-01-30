@@ -190,6 +190,7 @@ FROM customer_orders_pizza_names
 GROUP BY customer_id, pizza_id, pizza_name
 ORDER BY customer_id;
 ```
+<img width="1908" height="454" alt="image" src="https://github.com/user-attachments/assets/e738de11-20df-4f47-9969-8effdb8a3fa9" />
 
 
 **Question 6** : What was the maximum number of pizzas delivered in a single order?
