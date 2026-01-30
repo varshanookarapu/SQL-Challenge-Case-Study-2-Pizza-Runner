@@ -262,6 +262,7 @@ ORDER BY co.order_id
 SELECT COUNT(order_id) as  pizzas_delivered_with_exclusions_and_extras
 FROM  customer_orders_runner_orders WHERE exclusions IS NOT NULL AND extras IS NOT NULL AND pickup_time IS NOT NULL
 ```
+<img width="1670" height="126" alt="image" src="https://github.com/user-attachments/assets/402b7672-c6a8-4a95-9d88-49c8338d0095" />
 
 **Question 9** : What was the total volume of pizzas ordered for each hour of the day?
 ---
@@ -274,6 +275,8 @@ GROUP BY hour
 ORDER BY hour
 
 ```
+<img width="1389" height="366" alt="image" src="https://github.com/user-attachments/assets/fd581da2-1973-4c47-a521-d0542226a0f7" />  
+
 
 **Question 10**: What was the volume of orders for each day of the week?  - could be ambiguous but we need to count all the orders based on the day of the week ( like all orders on monday irrespective of order_date ) 
 
@@ -289,4 +292,7 @@ SELECT  TO_CHAR(order_time ,'Day' )   as day_of_week, COUNT( order_id) as volume
 GROUP BY  TO_CHAR (order_time , 'Day')
 ORDER BY TO_CHAR (order_time , 'Day') DESC
 ```
+
+<img width="1299" height="286" alt="image" src="https://github.com/user-attachments/assets/91b5ceb5-09e0-4649-9d3a-5d2f8acb3e77" />
+
 
