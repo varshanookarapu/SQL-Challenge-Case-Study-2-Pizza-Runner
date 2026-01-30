@@ -178,6 +178,55 @@ ORDER BY customer_id;
 ```
 
 
+**Question 6** : What was the maximum number of pizzas delivered in a single order?
+---
+
+## SQL Code
+
+```sql
+WITH customer_orders_runner_orders AS 
+(
+SELECT co.order_id,customer_id,pizza_id,exclusions,extras,order_time,runner_id,pickup_time,distance,duration,cancellation FROM customer_orders co LEFT JOIN runner_orders ro ON
+co.order_id = ro.order_id 
+ORDER BY co.order_id
+)
+
+
+SELECT MAX(pizzas_delivered) as max_pizzas_delivered_in_single_order
+FROM
+(
+SELECT order_id , COUNT(pizza_id) as pizzas_delivered FROM  customer_orders_runner_orders 
+WHERE cancellation IS NULL
+GROUP BY order_id
+ORDER BY order_id
+) as pizzas_per_order
+
+```
+
+**Question 7** : For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+---
+
+## SQL Code
+
+```sql
+WITH customer_orders_runner_orders AS 
+(
+SELECT co.order_id,customer_id,pizza_id,exclusions,extras,order_time,runner_id,pickup_time,distance,duration,cancellation FROM customer_orders co LEFT JOIN runner_orders ro ON
+co.order_id = ro.order_id 
+ORDER BY co.order_id
+)
+
+SELECT customer_id, count(pizza_id) as pizzas_delivered,
+SUM(CASE WHEN   (exclusions IS NOT NULL OR  extras IS NOT NULL ) THEN  1 ELSE 0 END ) AS pizzas_with_atleast_one_change,
+SUM(CASE WHEN   (exclusions IS  NULL AND extras IS NULL ) THEN  1 ELSE 0 END ) AS pizzas_with_no_change
+FROM customer_orders_runner_orders 
+WHERE cancellation IS NULL 
+GROUP BY customer_id
+ORDER BY customer_id
+
+```
+
+
 **Question 8**: How many pizzas were delivered that had both exclusions and extras?
 
 ---
@@ -196,6 +245,17 @@ SELECT COUNT(order_id) as  pizzas_delivered_with_exclusions_and_extras
 FROM  customer_orders_runner_orders WHERE exclusions IS NOT NULL AND extras IS NOT NULL AND pickup_time IS NOT NULL
 ```
 
+**Question 9** : What was the total volume of pizzas ordered for each hour of the day?
+---
+
+## SQL Code
+
+```sql
+SELECT EXTRACT(HOUR FROM order_time) as hour, count(pizza_id) as volume_of_pizzas_ordered_for_each_hour_of_day FROM customer_orders
+GROUP BY hour
+ORDER BY hour
+
+```
 
 **Question 10**: What was the volume of orders for each day of the week?  - could be ambiguous but we need to count all the orders based on the day of the week ( like all orders on monday irrespective of order_date ) 
 
