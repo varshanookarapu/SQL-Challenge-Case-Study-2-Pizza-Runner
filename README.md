@@ -242,6 +242,7 @@ GROUP BY customer_id
 ORDER BY customer_id
 
 ```
+<img width="1670" height="325" alt="image" src="https://github.com/user-attachments/assets/1f225396-cd57-42ce-a0df-0d5e6a3010a2" />
 
 
 **Question 8**: How many pizzas were delivered that had both exclusions and extras?
