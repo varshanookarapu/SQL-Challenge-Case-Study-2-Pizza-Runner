@@ -217,6 +217,8 @@ ORDER BY order_id
 ) as pizzas_per_order
 
 ```
+<img width="995" height="138" alt="image" src="https://github.com/user-attachments/assets/34554ac4-2f51-4e37-a4d0-174ccfccd7fc" />
+
 
 **Question 7** : For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 ---
